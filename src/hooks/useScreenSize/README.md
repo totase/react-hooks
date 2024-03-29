@@ -1,4 +1,4 @@
-# usePrevious
+# useScreenSize
 
 Tracks the size of the screen (width and height) and updates when the screen size changes.
 

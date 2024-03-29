@@ -1,4 +1,4 @@
-# useDebounceValue
+# useOnMount
 
 Trigger a callback function when the component is mounted.
 

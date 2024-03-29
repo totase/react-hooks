@@ -1,4 +1,4 @@
-# useDebounceValue
+# useKeyDown
 
 Returns a callback function to handle key down events for specified keys.
 

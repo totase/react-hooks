@@ -1,4 +1,4 @@
-# useDebounceValue
+# useOnEscape
 
 Triggers a callback when the 'Escape' key is pressed.
 
