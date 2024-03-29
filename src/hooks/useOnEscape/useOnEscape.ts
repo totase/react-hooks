@@ -5,7 +5,7 @@ import { useEffect } from 'react';
  *
  * @param onEscape - Callback function to be executed when the 'Escape' key is pressed.
  *
- * @returns  void
+ * @returns void
  */
 const useOnEscape = (onEscape: () => void) => {
   useEffect(() => {

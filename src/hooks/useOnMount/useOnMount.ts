@@ -5,7 +5,7 @@ import { useEffect } from 'react';
  *
  * @param callback - Callback function to be executed when the component is mounted.
  *
- * @returns  void
+ * @returns void
  */
 const useOnMount = (callback: () => void) => {
   useEffect(() => {
