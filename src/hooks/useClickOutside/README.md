@@ -4,7 +4,7 @@ Detect clicks outside a specified element.
 
 ## Usage
 
-```ts
+```tsx
 const Usage = () => {
   const elementRef = useRef<HTMLDivElement>(null);
 

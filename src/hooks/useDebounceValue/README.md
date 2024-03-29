@@ -4,7 +4,7 @@ Delays the update of a value by the specified delay time.
 
 ## Usage
 
-```ts
+```tsx
 const Usage = () => {
   const [count, setCount] = useState(0);
 

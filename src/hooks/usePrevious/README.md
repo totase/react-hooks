@@ -4,7 +4,7 @@ Returns the previous value of the provided value.
 
 ## Usage
 
-```ts
+```tsx
 const Usage = () => {
   const [count, setCount] = useState(0);
 
