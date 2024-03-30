@@ -8,7 +8,7 @@ Trigger a callback function when the component is unmounted.
 const Usage = () => {
   const handleUnmount = () => {
     ...
-  }
+  };
 
   useOnUnmount(handleUnmount);
 

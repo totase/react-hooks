@@ -8,7 +8,7 @@ Returns a callback function to handle key down events for specified keys.
 const Usage = () => {
   const handleAction = () => {
     ...
-  }
+  };
 
   const onKeyDown = useKeyDown({ action: handleAction });
 

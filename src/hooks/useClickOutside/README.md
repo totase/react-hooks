@@ -10,10 +10,12 @@ const Usage = () => {
 
   const handleClickOutside = () => {
     ...
-  }
+  };
 
   useClickOutside(elementRef, handleClickOutside);
 
-  ...
+  return (
+    <div ref={elementRef} />;
+  );
 };
 ```

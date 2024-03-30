@@ -8,7 +8,7 @@ Triggers a callback when the 'Escape' key is pressed.
 const Usage = () => {
   const handleAction = () => {
     ...
-  }
+  };
 
   useOnEscape(handleAction);
 

@@ -8,7 +8,7 @@ Trigger a callback function when the component is mounted.
 const Usage = () => {
   const handleMount = () => {
     ...
-  }
+  };
 
   useOnMount(handleMount);
 
