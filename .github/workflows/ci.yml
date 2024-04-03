@@ -2,13 +2,46 @@ name: CI
 
 on:
   push:
-    branches: ['main']
+    branches: ['*']
   pull_request:
     branches: ['main']
 
+env:
+  HUSKY: 0
+
 jobs:
+  prettier:
+    name: Prettier
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run prettier
+        run: npm run prettier
+
   lint:
     name: Lint codebase
+    needs: prettier
     runs-on: ubuntu-latest
 
     steps:
