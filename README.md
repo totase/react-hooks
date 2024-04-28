@@ -7,6 +7,7 @@ A collection of react hooks I frequently use across projects.
 Hooks included:
 
 - [useClickOutside](./src/hooks/useClickOutside/)
+- [useClipboard](./src/hooks/useClipboard/)
 - [useDebounceValue](./src/hooks/useDebounceValue/)
 - [useKeyDown](./src/hooks/useKeyDown/)
 - [useOnEscape](./src/hooks/useOnEscape/)
