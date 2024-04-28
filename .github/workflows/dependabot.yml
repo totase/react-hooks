@@ -1,0 +1,24 @@
+name: Dependabot pull request
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    name: Merge patch PRs
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Get metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1
+
+      - name: Auto-approve patch/minor
+        uses: hmarr/auto-approve-action@v3
+        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor' }}

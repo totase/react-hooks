@@ -10,8 +10,21 @@ env:
   HUSKY: 0
 
 jobs:
+  dependabot:
+    name: Check for Dependabot
+    uses: ./.github/workflows/dependabot.yml
+    with:
+      branch: ${{ github.head_ref }}
+
+  install:
+    name: Install
+    uses: ./.github/workflows/install.yml
+    with:
+      branch: ${{ github.head_ref }}
+
   prettier:
     name: Prettier
+    needs: install
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +36,7 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.npm
+          path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -32,16 +45,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
 
       - name: Run prettier
         run: npm run prettier
 
   lint:
     name: Lint codebase
-    needs: prettier
+    needs: [install]
     runs-on: ubuntu-latest
 
     steps:
@@ -53,68 +63,23 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.npm
+          path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
 
       - name: Run linter
         run: npm run lint
 
-  test:
+  tests:
     name: Run tests
-    needs: lint
-    runs-on: ubuntu-latest
+    needs: [install, lint, prettier]
+    uses: ./.github/workflows/tests.yml
+    with:
+      branch: ${{ github.head_ref }}
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Cache node modules
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm run test
-
-  build:
-    name: Build
-    needs: test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build
-        run: npm run build
