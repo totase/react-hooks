@@ -25,7 +25,6 @@ const useClipboard = () => {
         console.warn('Failed to copy', error);
         setCopiedText(null);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
