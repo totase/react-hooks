@@ -29,6 +29,7 @@ jobs:
     name: Merge dependabot PR
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - name: Automerge
         id: automerge
