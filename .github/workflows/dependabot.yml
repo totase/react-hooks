@@ -10,7 +10,7 @@ on:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    name: Approve PR
+    name: Approve and merge PR
     if: ${{ github.actor == 'dependabot[bot]' }}
     permissions:
       pull-requests: write
@@ -22,18 +22,11 @@ jobs:
       - name: Auto-approve patch/minor
         uses: hmarr/auto-approve-action@v3
         if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor' }}
-    
-  automerge:
-    needs: dependabot
-    runs-on: ubuntu-latest
-    name: Merge dependabot PR
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - name: Automerge
+      
+      - name: Automerge patch/minor
         id: automerge
         uses: "pascalgn/automerge-action@v0.16.3"
        
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_LABELS: "automerge"
