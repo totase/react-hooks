@@ -13,6 +13,7 @@ jobs:
     name: Approve and merge PR
     if: ${{ github.actor == 'dependabot[bot]' }}
     permissions:
+      contents: write
       pull-requests: write
     steps:
       - name: Get metadata
@@ -29,4 +30,5 @@ jobs:
        
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: "automerge"
+          MERGE_LABELS: "dependencies"
+          MERGE_METHOD: "squash"
