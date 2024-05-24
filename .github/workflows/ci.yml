@@ -10,12 +10,6 @@ env:
   HUSKY: 0
 
 jobs:
-  dependabot:
-    name: Check for Dependabot
-    uses: ./.github/workflows/dependabot.yml
-    with:
-      branch: ${{ github.head_ref }}
-
   install:
     name: Install
     uses: ./.github/workflows/install.yml
@@ -80,6 +74,13 @@ jobs:
     name: Run tests
     needs: [install, lint, prettier]
     uses: ./.github/workflows/tests.yml
+    with:
+      branch: ${{ github.head_ref }}
+
+  dependabot:
+    name: Check for Dependabot
+    needs: [tests]
+    uses: ./.github/workflows/dependabot.yml
     with:
       branch: ${{ github.head_ref }}
 
