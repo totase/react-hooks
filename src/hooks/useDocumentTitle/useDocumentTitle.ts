@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const APPLICATION_NAME = 'Hooks';
+export const APPLICATION_NAME = 'Hooks';
 
 /**
  * Dynamically sets the document title. Title is reset when hook is unmounted.
