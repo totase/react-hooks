@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: ['main']
 
-env:
-  HUSKY: 0
-
 jobs:
   install:
     name: Install
@@ -45,7 +42,7 @@ jobs:
 
   lint:
     name: Lint codebase
-    needs: [install]
+    needs: install
     runs-on: ubuntu-latest
 
     steps:
@@ -70,17 +67,36 @@ jobs:
       - name: Run linter
         run: npm run lint
 
-  tests:
-    name: Run tests
+  test:
+    name: Run tests 
     needs: [install, lint, prettier]
-    uses: ./.github/workflows/tests.yml
-    with:
-      branch: ${{ github.head_ref }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run tests
+        run: npm run test
 
   dependabot:
-    name: Check for Dependabot
-    needs: [tests]
-    uses: ./.github/workflows/dependabot.yml
-    with:
-      branch: ${{ github.head_ref }}
-
+      name: Check for Dependabot
+      needs: test
+      uses: ./.github/workflows/dependabot.yml
+      with:
+        branch: ${{ github.head_ref }}
