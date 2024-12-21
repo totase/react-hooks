@@ -18,4 +18,5 @@ Hooks included:
 - [usePagination](./src/hooks/usePagination/)
 - [usePrevious](./src/hooks/usePrevious/)
 - [useScreenSize](./src/hooks/useScreenSize/)
+- [useTimeout](./src/hooks/useTimeout/)
 - [useToggle](./src/hooks/useToggle/)
